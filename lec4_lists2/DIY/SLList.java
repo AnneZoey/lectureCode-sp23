@@ -35,6 +35,12 @@ public class SLList {
         size = 1;
     }
 
+    public SLList(int[] array) {
+        sentinel = new IntNode(0, null);
+        for (int e : array) {
+            addLast(e);
+        }
+    }
     /** Adds an item to the front of the list. */
     public void addFirst(int x) {
         size++;
@@ -60,15 +66,20 @@ public class SLList {
         return size;
     }
 
+    public void deleteFirst() {
+        sentinel.next = sentinel.next.next;
+    }
+
     public String toString() { return sentinel.next.toString(); }
 
     public static void main(String[] args) {
         /* Creates a list of one integer, namely 10 */
-        SLList L = new SLList();
-        L.addFirst(1);
+        SLList L = new SLList(new int[]{1, 5, 9});
+        /*L.addFirst(1);
         L.addLast(2);
         L.addFirst(3);
         L.addFirst(4);
+        L.deleteFirst();*/
         System.out.println(L);
         System.out.println(L.size());
     }
