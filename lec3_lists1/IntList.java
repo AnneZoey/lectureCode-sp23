@@ -30,10 +30,8 @@ public class IntList {
 
 	/** Returns the ith item of this IntList. */
 	public int get(int i) {
-		if (i == 0) {
-			return first;
-		}
-		return rest.get(i - 1);
+		if (i == 0) { return this.first;}
+		return this.rest.get(i -1);
 	}
 
 	public static void main(String[] args) {
@@ -41,6 +39,6 @@ public class IntList {
 		L = new IntList(10, L);
 		L = new IntList(5, L);
 
-		System.out.println(L.get(100));
+		System.out.println(L.get(2));
 	}
 } 
