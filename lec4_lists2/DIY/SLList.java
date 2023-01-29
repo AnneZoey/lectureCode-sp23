@@ -4,39 +4,73 @@ package lec4_lists2.DIY;
  *  in case you want to try to figure out how to write it yourself.
  */
 public class SLList {
-    public class IntNode {
+    private static class IntNode {
         public int item;
         public IntNode next;
         public IntNode(int i, IntNode n) {
             item = i;
             next = n;
         }
+        public String toString() {
+            if (next == null) { return Integer.toString(item); }
+            StringBuilder sb = new StringBuilder();
+            sb.append(item);
+            sb.append("->");
+            sb.append(next);
+            return sb.toString();
+        }
+    }
+    /*The first item (if it exists) is sentinel.next*/
+    private IntNode sentinel;
+    private int size;
+
+    public SLList() {
+        sentinel = new IntNode(0, null);
+        size = 0;
     }
 
-    private IntNode first; 
-
     public SLList(int x) {
-        first = new IntNode(x, null);
+        sentinel = new IntNode(0, null);
+        sentinel.next = new IntNode(x, null);
+        size = 1;
     }
 
     /** Adds an item to the front of the list. */
     public void addFirst(int x) {
-        first = new IntNode(x, first);
-    }    
+        size++;
+        sentinel.next = new IntNode(x, sentinel.next);
+    }
 
     /** Retrieves the front item from the list. */
     public int getFirst() {
-        return first.item;
+        return sentinel.next.item;
     }
 
     /** Adds an item to the end of the list. */
     public void addLast(int x) {
-        /* Your Code Here! */
+        IntNode p = sentinel;
+        while (p.next != null) {
+            p = p.next;
+        }
+        size++;
+        p.next = new IntNode(x, null);
     }
 
-    /** Returns the number of items in the list using recursion. */
     public int size() {
-        /* Your Code Here! */
-        return 0;
+        return size;
+    }
+
+    public String toString() { return sentinel.next.toString(); }
+
+    public static void main(String[] args) {
+        /* Creates a list of one integer, namely 10 */
+        SLList L = new SLList();
+        L.addFirst(1);
+        L.addLast(2);
+        L.addFirst(3);
+        L.addFirst(4);
+        System.out.println(L);
+        System.out.println(L.size());
     }
 }
+
