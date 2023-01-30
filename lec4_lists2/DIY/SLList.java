@@ -11,13 +11,26 @@ public class SLList {
             item = i;
             next = n;
         }
+        public void addAdjacent() {
+            IntNode p = this;
+            if (p == null) { return;}
+            IntNode s = p;
+            while (s.next != null) {
+                if (s.item == s.next.item) {
+                    s.item *= 2;
+                    s.next = s.next.next;
+                    s = p;
+                } else {
+                    s = s.next;
+                }
+            }
+        }
         public String toString() {
             if (next == null) { return Integer.toString(item); }
-            StringBuilder sb = new StringBuilder();
-            sb.append(item);
-            sb.append("->");
-            sb.append(next);
-            return sb.toString();
+            String sb = item +
+                    "->" +
+                    next;
+            return sb;
         }
     }
     /*The first item (if it exists) is sentinel.next*/
@@ -68,18 +81,33 @@ public class SLList {
 
     public void deleteFirst() {
         sentinel.next = sentinel.next.next;
+        size--;
+    }
+    public void addAdjacent() {
+        sentinel.next.addAdjacent();
+    }
+
+    public void deleteAt(int i) {
+        IntNode p = sentinel;
+        while (i != 0) {
+            p = p.next;
+            i--;
+        }
+        p.next = p.next.next;
+        size--;
     }
 
     public String toString() { return sentinel.next.toString(); }
 
     public static void main(String[] args) {
         /* Creates a list of one integer, namely 10 */
-        SLList L = new SLList(new int[]{1, 5, 9});
+        SLList L = new SLList(new int[]{1, 1, 2, 3});
         /*L.addFirst(1);
         L.addLast(2);
         L.addFirst(3);
         L.addFirst(4);
         L.deleteFirst();*/
+        L.addAdjacent();
         System.out.println(L);
         System.out.println(L.size());
     }
